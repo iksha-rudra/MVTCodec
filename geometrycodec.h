@@ -22,6 +22,8 @@ public:
 
     GeomEncodeList encodeLineStringGeom(LineString lineString, bool isUpdated = false);
 
+    GeomEncodeList encodePolygonGeom(Polygon poly, bool isUpdated = false);
+
     GeomEncodeList encodeMultiLineStringGeom(MultiLineString lineString);
 
     int32 encodeCommandInteger(CommandID id, int32 count);
@@ -35,8 +37,6 @@ public:
     void updateGeometry(MultiPoint& geomList, Point2Di &refPnt);
 
     void updateGeometry(MultiLineString &geomList);
-
-    GeomEncodeList encodePolygonGeom(Polygon poly, bool isUpdated = false);
 };
 
 #endif // GEOMETRYCODEC_H

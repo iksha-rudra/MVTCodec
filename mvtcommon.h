@@ -5,19 +5,19 @@
 #include <cstdint>
 #include "point2di.h"
 
+using namespace std;
+
 namespace MVT
 {
-    typedef std::vector<unsigned> GeomEncodeList;
+    typedef vector<unsigned> GeomEncodeList;
 
-    typedef std::vector<Point2Di> MultiPoint;
+    typedef vector<Point2Di> MultiPoint;
 
-    typedef MultiPoint LineString;
+    typedef vector<Point2Di> LineString;
 
-    typedef MultiPoint Polygon;
+    typedef vector<vector<Point2Di>> MultiLineString;
 
-    typedef std::vector<LineString> MultiLineString;
-
-    typedef std::vector<Polygon> MultiPolygon;
+    typedef vector<vector<Point2Di>> Polygon;
 
     enum CommandID
     {

@@ -23,5 +23,5 @@ HEADERS += \
     point2di.h
 
 DISTFILES += \
-    vector_tile21/vector_tile.proto
+    vector_tile.proto
 
