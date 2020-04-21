@@ -1,74 +1,88 @@
 #include <iostream>
-#include "geometrycodec.h"
+#include <sstream>
 
 using namespace std;
 
-void multilineStringFun()
+#include "cgmvectortile.h"
+
+void testMVectorTile()
 {
-    GeometryCodec geomCodec;
+    LineString pointList;
 
-    LineString line1;
+    Polygon poly1;
 
-    line1.push_back(Point2Di(2,2));
+    pointList.push_back(Point2Di(0,0));
 
-    line1.push_back(Point2Di(2,10));
+    pointList.push_back(Point2Di(10,0));
 
-    line1.push_back(Point2Di(10,10));
+    pointList.push_back(Point2Di(10,10));
 
-    LineString line2;
+    pointList.push_back(Point2Di(0,10));
 
-    line2.push_back(Point2Di(1,1));
+    pointList.push_back(Point2Di(0,0));
 
-    line2.push_back(Point2Di(3,5));
+    poly1.first = pointList;
 
-    MultiLineString mulLine;
+    Polygon poly2;
 
-    mulLine.push_back(line1);
+    pointList.clear();
 
-    mulLine.push_back(line2);
+    pointList.push_back(Point2Di(11,11));
 
-    GeomEncodeList list = geomCodec.encodeMultiLineStringGeom(mulLine);
+    pointList.push_back(Point2Di(20,11));
 
-    cout << "[ ";
-    for (GeomEncodeList::iterator it = list.begin() ; it != list.end(); ++it)
-        cout << " " << *it;
-    cout << " ]\n";
+    pointList.push_back(Point2Di(20,20));
 
-    geomCodec.updateGeometry(mulLine);
+    pointList.push_back(Point2Di(11,20));
 
-    for (MultiLineString::iterator it = mulLine.begin() ; it != mulLine.end(); ++it)
-    {
-        LineString lineStr = *it;
+    pointList.push_back(Point2Di(11,11));
 
-        for (LineString::iterator it = lineStr.begin() ; it != lineStr.end(); ++it)
-        {
-            Point2Di pnt = *it;
+    poly2.first = pointList;
 
-            cout << "(" << pnt.x() << "," << pnt.y() <<")\n";
-        }
-    }
+    pointList.clear();
+
+    pointList.push_back(Point2Di(13,13));
+
+    pointList.push_back(Point2Di(13,17));
+
+    pointList.push_back(Point2Di(17,17));
+
+    pointList.push_back(Point2Di(17,13));
+
+    pointList.push_back(Point2Di(13,13));
+
+    poly2.second.push_back(pointList);
+
+    vector<Polygon> polyList;
+
+    polyList.push_back(poly1);
+
+    polyList.push_back(poly2);
+
+    CGMVectorTile vTile;
+
+    CGMVTLayer* layer = vTile.createLayer();
+
+    layer->setName("TestLayer");
+
+    layer->setExtent(512);
+
+    CGMVTFeature* feature = layer->createFeature();
+
+    feature->setPolygonGeometry(polyList);
+
+    feature->setID(1);
+
+    feature->addAttributes(Type_Int64,"ID","529");
+
+    feature->addAttributes(Type_String,"Name","Rakesh");
+
+    cout << vTile.debugString();
 }
 
 int main()
 {
-    GeometryCodec geomCodec;
-
-    Polygon poly;
-
-    poly.push_back(Point2Di(3,6));
-
-    poly.push_back(Point2Di(8,12));
-
-    poly.push_back(Point2Di(20,34));
-
-    poly.push_back(Point2Di(3,6));
-
-    GeomEncodeList list = geomCodec.encodePolygonGeom(poly);
-
-    cout << "[ ";
-    for (GeomEncodeList::iterator it = list.begin() ; it != list.end(); ++it)
-        cout << " " << *it;
-    cout << " ]\n";
+    testMVectorTile();
 
     return 0;
 }

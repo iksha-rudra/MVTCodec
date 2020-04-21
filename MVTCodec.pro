@@ -10,17 +10,19 @@ LIBS += -lprotobuf
 LIBS += -lpthread
 
 SOURCES += main.cpp \
-    VectorTile.cpp \
     vector_tile.pb.cc \
-    geometrycodec.cpp \
-    point2di.cpp
+    cgmvectortile.cpp \
+    cgmvtlayer.cpp \
+    cgmvtfeature.cpp \
+    cgmvtgeometry.cpp
 
 HEADERS += \
-    VectorTile.h \
     vector_tile.pb.h \
-    geometrycodec.h \
-    mvtcommon.h \
-    point2di.h
+    cgmvectortile.h \
+    cgmvtlayer.h \
+    cgmvtfeature.h \
+    cgmvtcommon.h \
+    cgmvtgeometry.h
 
 DISTFILES += \
     vector_tile.proto
