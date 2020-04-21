@@ -29,11 +29,19 @@ public:
 
     string debugString();
 
+    bool display();
+
+    bool isInitialized();
+
 private:
 
     Tile m_tile;
 
     vector<CGMVTLayer*> m_layers;
+
+    string _featureTypeToStr(int typeIn);
+
+    string _valueToStr(const Tile_Value &value);
 };
 
 #endif // CGMVECTORTILE_H

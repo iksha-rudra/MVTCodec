@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <fstream>
 
 using namespace std;
 
@@ -77,12 +78,57 @@ void testMVectorTile()
 
     feature->addAttributes(Type_String,"Name","Rakesh");
 
+    cout << vTile.isInitialized() << endl;
+
     cout << vTile.debugString();
+
+    vTile.display();
+
+    fstream output("poly.pbf", ios::out | ios::binary);
+
+    if (!output)
+    {
+      cout << ": File not found.  Creating a new file." << endl;
+
+      return;
+    }
+
+    else if (!vTile.serializeToOstream(&output))
+    {
+      cerr << "Failed to parse address book." << endl;
+
+      return;
+    }
+}
+
+void testMVectorTileFromFile(string fileName)
+{
+    CGMVectorTile vTile;
+
+    fstream input(fileName.c_str(), ios::in | ios::binary);
+
+    if (!input)
+    {
+      cout << ": File not found.  Creating a new file." << endl;
+
+      return;
+    }
+
+    else if (!vTile.parseFromIstream(&input))
+    {
+      cerr << "Failed to parse address book." << endl;
+
+      return;
+    }
+
+    vTile.display();
 }
 
 int main()
 {
-    testMVectorTile();
+    testMVectorTileFromFile("reply.pbf");
+//    testMVectorTileFromFile("poly.pbf");
+    //testMVectorTile();
 
     return 0;
 }

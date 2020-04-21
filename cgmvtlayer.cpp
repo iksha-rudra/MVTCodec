@@ -20,6 +20,8 @@ bool CGMVTLayer::setName(string name)
 {
     m_name = name;
 
+    m_layer->set_name(name);
+
     return true;
 }
 
